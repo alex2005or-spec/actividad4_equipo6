@@ -15,8 +15,8 @@ from freegames import line
 
 def draw():
     """Draw maze."""
-    color('black')
-    width(5)
+    color('grey')    #Color de los muros
+    width(6)         #Grosor de los muros
 
     for x in range(-200, 200, 40):
         for y in range(-200, 200, 40):
@@ -35,10 +35,10 @@ def tap(x, y):
     else:
         down()
 
-    width(2)
-    color('red')
+    width(3)        #Grosor del trazo
+    color('purple') #Color del trazo
     goto(x, y)
-    dot(4)
+    dot(8)          #Tamaño del punto
 
 
 setup(420, 420, 370, 0)
