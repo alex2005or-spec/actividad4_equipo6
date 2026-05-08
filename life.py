@@ -55,8 +55,10 @@ def draw():
     step()
     clear()
     for (x, y), alive in cells.items():
-        color = 'green' if alive else 'black'
-        square(x, y, 10, color)
+        if alive:
+		color = 'dark green' if last_cells.get((x,y), False) else 'light green'
+	else:
+		color = 'black'
     update()
     ontimer(draw, 100)
 
