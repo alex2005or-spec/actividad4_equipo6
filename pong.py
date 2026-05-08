@@ -58,6 +58,7 @@ def draw():
 
     up()
     goto(x, y)
+    color("blue")
     dot(10)
     update()
 
@@ -86,6 +87,7 @@ def draw():
 
 
 setup(420, 420, 370, 0)
+bgcolor("black")
 hideturtle()
 tracer(False)
 listen()
