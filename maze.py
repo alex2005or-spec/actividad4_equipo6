@@ -10,8 +10,8 @@ Ejercicios
 # Importa la función random para generar valores aleatorios.
 from random import random
 
-# Importa todas las funciones de turtle para dibujar en pantalla.
-from turtle import *
+# Importa el módulo turtle para dibujar en pantalla.
+import turtle
 
 # Importa la función line de freegames para dibujar líneas.
 from freegames import line
@@ -19,57 +19,73 @@ from freegames import line
 
 def draw():
     """Dibuja el laberinto."""
-    color('grey')    # Define el color de los muros del laberinto.
-    width(6)         # Define el grosor de los muros del laberinto.
 
-    # Recorre las posiciones en el eje x donde se dibujarán las líneas.
+    # Define el color de los muros del laberinto.
+    turtle.color("grey")
+
+    # Define el grosor de los muros del laberinto.
+    turtle.width(6)
+
+    # Recorre las posiciones horizontales.
     for x in range(-200, 200, 40):
 
-        # Recorre las posiciones en el eje y donde se dibujarán las líneas.
+        # Recorre las posiciones verticales.
         for y in range(-200, 200, 40):
 
-            # Decide aleatoriamente la dirección de cada muro.
+            # Decide aleatoriamente la dirección de la línea.
             if random() > 0.5:
-                # Dibuja una línea diagonal de abajo hacia arriba.
+
+                # Dibuja una línea diagonal ascendente.
                 line(x, y, x + 40, y + 40)
             else:
-                # Dibuja una línea diagonal de arriba hacia abajo.
+
+                # Dibuja una línea diagonal descendente.
                 line(x, y + 40, x + 40, y)
 
-    # Actualiza la pantalla para mostrar el laberinto completo.
-    update()
+    # Actualiza la pantalla con el laberinto generado.
+    turtle.update()
 
 
 def tap(x, y):
-    """Dibuja una línea y un punto cuando se hace clic en la pantalla."""
+    """Dibuja una línea y un punto cuando se hace clic."""
 
-    # Si el clic está fuera del área del laberinto, levanta el lápiz.
+    # Verifica si el clic está fuera de los límites.
     if abs(x) > 198 or abs(y) > 198:
-        up()
+
+        # Levanta el lápiz para no dibujar fuera del área.
+        turtle.up()
     else:
-        # Si el clic está dentro del área del laberinto, baja el lápiz para dibujar.
-        down()
 
-    width(3)         # Define el grosor del trazo que deja el jugador.
-    color('purple')  # Define el color del trazo que deja el jugador.
-    goto(x, y)       # Mueve el cursor a la posición donde se hizo clic.
-    dot(8)           # Dibuja un punto en la posición del clic.
+        # Baja el lápiz para permitir el dibujo.
+        turtle.down()
+
+    # Define el grosor del trazo del usuario.
+    turtle.width(3)
+
+    # Define el color del trazo del usuario.
+    turtle.color("purple")
+
+    # Mueve el cursor a la posición seleccionada.
+    turtle.goto(x, y)
+
+    # Dibuja un punto en la posición del clic.
+    turtle.dot(8)
 
 
-# Configura el tamaño y la posición de la ventana del juego.
-setup(420, 420, 370, 0)
+# Configura el tamaño y posición de la ventana.
+turtle.setup(420, 420, 370, 0)
 
-# Oculta la tortuga para que solo se vea el dibujo.
-hideturtle()
+# Oculta el cursor de turtle.
+turtle.hideturtle()
 
-# Desactiva la animación automática para dibujar más rápido.
-tracer(False)
+# Desactiva la animación automática.
+turtle.tracer(False)
 
 # Llama a la función que dibuja el laberinto.
 draw()
 
-# Detecta los clics del usuario y llama a la función tap.
-onscreenclick(tap)
+# Detecta clics y ejecuta la función tap.
+turtle.onscreenclick(tap)
 
-# Mantiene abierta la ventana del juego.
-done()
+# Mantiene abierta la ventana del programa.
+turtle.done()
