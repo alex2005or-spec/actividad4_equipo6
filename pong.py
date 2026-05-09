@@ -7,7 +7,7 @@ Cambios realizados
 """
 
 from random import choice, random
-from turtle import *
+import turtle
 
 from freegames import vector
 
@@ -15,6 +15,7 @@ from freegames import vector
 def value():
     # Genera aleatoriamente la velocidad inicial de la pelota.
     return (3 + random() * 2) * choice([1, -1])
+
 
 # Posici¢n inicial de la pelota.
 ball = vector(0, 0)
@@ -33,92 +34,76 @@ def move(player, change):
 
 def rectangle(x, y, width, height):
     # Dibuja un rect ngulo en la posici¢n indicada.
-    up()
-    goto(x, y)
-    down()
-    begin_fill()
+    turtle.up()
+    turtle.goto(x, y)
+    turtle.down()
+    turtle.begin_fill()
 
     # Dibuja los lados del rect ngulo.
     for count in range(2):
-        forward(width)
-        left(90)
-        forward(height)
-        left(90)
-    end_fill()
+        turtle.forward(width)
+        turtle.left(90)
+        turtle.forward(height)
+        turtle.left(90)
+    turtle.end_fill()
 
 
 def draw():
     # Dibuja el juego, mueve la pelota y revisa rebotes.
-    clear()
-
+    turtle.clear()
     # Dibuja las barras de los jugadores.
     rectangle(-200, state[1], 10, 50)
     rectangle(190, state[2], 10, 50)
-
     # Mueve la pelota seg£n su direcci¢n actual.
     ball.move(aim)
     x = ball.x
     y = ball.y
-    
     # Cambio visual: pelota y barras en color azul.
-    up()
-    goto(x, y)
-    color("blue")
-    dot(10)
-    update()
-
+    turtle.up()
+    turtle.goto(x, y)
+    turtle.color("blue")
+    turtle.dot(10)
+    turtle.update()
     # Rebote de la pelota contra el borde superior e inferior.
     if y < -200 or y > 200:
         aim.y = -aim.y
-
     # Revisa si la pelota toca la barra izquierda.
     if x < -185:
         low = state[1]
         high = state[1] + 50
-
         if low <= y <= high:
             aim.x = -aim.x
         else:
             return
-
     # Revisa si la pelota toca la barra derecha.
     if x > 185:
         low = state[2]
         high = state[2] + 50
-
         if low <= y <= high:
             aim.x = -aim.x
         else:
             return
-    
     # Ejecuta nuevamente la funci¢n para mantener el juego en marcha.
-    ontimer(draw, 50)
+    turtle.ontimer(draw, 50)
+
 
 # Configura el tama¤o y posici¢n de la ventana.
-setup(420, 420, 370, 0)
-
+turtle.setup(420, 420, 370, 0)
 # Cambio visual: fondo negro.
-bgcolor("black")
-
+turtle.bgcolor("black")
 # Oculta el cursor de dubujo.
-hideturtle()
-
+turtle.hideturtle()
 # Control manual de actualizaci¢n de pantalla.
-tracer(False)
-
+turtle.tracer(False)
 # Activa la lectura del teclado.
-listen()
-
+turtle.listen()
 # Controles del jugador izquierdo.
-onkey(lambda: move(1, 20), 'w')
-onkey(lambda: move(1, -20), 's')
-
+turtle.onkey(lambda: move(1, 20), 'w')
+turtle.onkey(lambda: move(1, -20), 's')
 # Controles del jugador derecho.
-onkey(lambda: move(2, 20), 'i')
-onkey(lambda: move(2, -20), 'k')
-
+turtle.onkey(lambda: move(2, 20), 'i')
+turtle.onkey(lambda: move(2, -20), 'k')
 # Inicia el juego.
 draw()
-
 # Mantiene abierta la ventana.
-done()
+turtle.done()
